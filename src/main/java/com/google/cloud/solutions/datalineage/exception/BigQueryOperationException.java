@@ -24,10 +24,10 @@ import com.google.cloud.solutions.datalineage.model.BigQueryTableEntity;
 public class BigQueryOperationException extends RuntimeException {
 
   public BigQueryOperationException(BigQueryTableEntity table) {
-    this(table, null);
+    //pass
   }
 
   public BigQueryOperationException(BigQueryTableEntity table, Throwable cause) {
-    super(String.format("BigQuery Operation exception for%n%s", table), cause);
+    //pass
   }
 }

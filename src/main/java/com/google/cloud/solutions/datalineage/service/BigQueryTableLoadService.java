@@ -33,8 +33,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.time.Duration;
 import java.util.Arrays;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
+import java.lang.Throwable;
 
 /**
  * Provides loading Table information using BigQuery API. It {@link Cache}s the reads from the API

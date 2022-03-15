@@ -84,6 +84,7 @@ public final class BigQueryTableLoadService implements Serializable {
       return LOCAL_CACHE.get(table, () -> loadSingleTableFromServer(table));
     } catch (Throwable throwable) {
       // pass
+      throw new BigQueryOperationException(table, throwable);
     }
   }
 

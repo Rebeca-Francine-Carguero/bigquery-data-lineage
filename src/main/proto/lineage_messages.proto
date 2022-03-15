@@ -1,0 +1,64 @@
+syntax = "proto3";
+package com.google.cloud.solutions.datalineage.model;
+
+message CompositeLineage {
+  int64 reconcileTime = 1;
+  JobInformation jobInformation = 2;
+  TableLineage tableLineage = 5;
+  repeated ColumnLineage columnsLineage = 10;
+}
+
+message JobInformation {
+  string jobId = 1;
+  int64 jobTime = 2;
+  string jobType = 5;
+  string actuator = 10;
+  TransformInformation transform = 15;
+}
+
+message TransformInformation {
+  string sql = 1;
+  // Extendable information to capture software versions etc. add fields like Pipeline version etc.
+  map<string, string> transform_properties = 2;
+}
+
+message TableLineage {
+  DataEntity target = 1;
+  string operation = 2;
+  repeated DataEntity parents = 5;
+}
+
+message ColumnLineage {
+  ColumnEntity target = 1;
+  repeated string operations = 2;
+  repeated ColumnEntity parents = 5;
+}
+
+message DataEntity {
+  enum DataEntityTypes {
+    UNKNOWN = 0;
+    QUERY_LEVEL_TABLE = 1;
+    CLOUD_STORAGE_FILE = 5;
+    BIGQUERY_TABLE = 10;
+  }
+
+  DataEntityTypes kind = 1;
+  string sqlResource = 2;
+  string linkedResource = 3;
+}
+
+
+message ColumnEntity {
+  DataEntity table = 1;
+  string column = 2;
+}
+
+message TargetPolicyTags {
+  DataEntity table = 1;
+  repeated ColumnPolicyTags policyTags = 5;
+}
+
+message ColumnPolicyTags {
+  string column = 1;
+  repeated string policyTagIds = 2;
+}
